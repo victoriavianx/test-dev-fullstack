@@ -1,5 +1,6 @@
 import { database } from "../../app";
 import { IProduct, IProductRequest } from "../../interfaces/products.interface";
+import { formatDateToISOString } from "../../utils";
 
 const createProductService = async ({
   productName,
@@ -12,15 +13,13 @@ const createProductService = async ({
 
   const date = new Date();
 
-  const dateISOFormat = date.toISOString();
-
   const newProduct: IProduct = {
     productName,
     description,
     category,
     condition,
     price,
-    created_At: dateISOFormat,
+    created_At: formatDateToISOString(date),
   };
 
   await products.add(newProduct);

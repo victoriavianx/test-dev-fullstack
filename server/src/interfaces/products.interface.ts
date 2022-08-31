@@ -7,6 +7,17 @@ export interface IProductRequest {
 }
 
 export interface IProduct extends IProductRequest {
+  id?: string;
   created_At: string;
-  updated_At?: string;
+}
+
+export interface IProductToUpdate {
+  productName?: string;
+  description?: string;
+  condition?: string;
+  price?: number;
+}
+
+export interface IProductUpdate extends IProductToUpdate {
+  updated_At: string;
 }

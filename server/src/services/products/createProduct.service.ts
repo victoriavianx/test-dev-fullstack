@@ -9,7 +9,7 @@ const createProductService = async ({
   condition,
   price,
 }: IProductRequest) => {
-  const products = await database.collection("products");
+  const products = database.collection("products");
 
   const date = new Date();
 

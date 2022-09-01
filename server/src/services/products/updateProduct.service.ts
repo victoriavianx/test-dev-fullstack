@@ -1,4 +1,5 @@
 import { database } from "../../app";
+import { AppError } from "../../errors/appError";
 import {
   IProductToUpdate,
   IProductUpdate,
@@ -9,7 +10,7 @@ const updateProductService = async (
   { productName, description, condition, price }: IProductToUpdate,
   productId: string
 ) => {
-  const productCollection = await database.collection("products");
+  const productCollection = database.collection("products");
 
   const date = new Date();
 
@@ -21,7 +22,13 @@ const updateProductService = async (
     updated_At: formatDateToISOString(date),
   };
 
-  await productCollection.doc(productId).update(product);
+  const productFound = productCollection.doc(productId);
+
+  if (!productFound) {
+    throw new AppError(404, "Product not found");
+  }
+
+  await productFound.update(product);
 };
 
 export default updateProductService;

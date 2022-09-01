@@ -1,7 +1,8 @@
 import { database } from "../../app";
+import { AppError } from "../../errors/appError";
 
 const listSpecificProductService = async (productId: string) => {
-  const productsCollection = await database.collection("products");
+  const productsCollection = database.collection("products");
 
   const snapshot = await productsCollection.get();
 
@@ -11,6 +12,10 @@ const listSpecificProductService = async (productId: string) => {
   }));
 
   const product = products.filter((product: any) => product.id == productId);
+
+  if (!product) {
+    throw new AppError(404, "Product not found");
+  }
 
   return product;
 };

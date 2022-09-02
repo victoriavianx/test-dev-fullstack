@@ -1,5 +1,5 @@
 import { database } from "../../app";
-import { AppError } from "../../errors/appError";
+import { IProduct } from "../../interfaces/products.interface";
 
 const listSpecificProductService = async (productId: string) => {
   const productsCollection = database.collection("products");
@@ -11,11 +11,9 @@ const listSpecificProductService = async (productId: string) => {
     ...doc.data(),
   }));
 
-  const product = products.filter((product: any) => product.id == productId);
-
-  if (!product) {
-    throw new AppError(404, "Product not found");
-  }
+  const product = products.filter(
+    (product: IProduct) => product.id === productId
+  );
 
   return product;
 };

@@ -1,5 +1,4 @@
 import { database } from "../../app";
-import { AppError } from "../../errors/appError";
 import {
   IProductToUpdate,
   IProductUpdate,
@@ -23,10 +22,6 @@ const updateProductService = async (
   };
 
   const productFound = productCollection.doc(productId);
-
-  if (!productFound) {
-    throw new AppError(404, "Product not found");
-  }
 
   await productFound.update(product);
 };

@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { AppError } from "../../errors/appError";
 import createProductService from "../../services/products/createProduct.service";
 
 const createProduct = async (req: Request, res: Response) => {

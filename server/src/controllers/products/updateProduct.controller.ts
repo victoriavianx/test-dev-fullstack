@@ -1,12 +1,10 @@
 import updateProductService from "../../services/products/updateProduct.service";
 import { Request, Response } from "express";
-import { AppError, handleError } from "../../errors/appError";
 
 const updateProduct = async (req: Request, res: Response) => {
-  const productId = req.params.id;
-  const { productName, description, condition, price } = req.body;
-
   try {
+    const productId = req.params.id;
+    const { productName, description, condition, price } = req.body;
     await updateProductService(
       { productName, description, condition, price },
       productId
@@ -14,9 +12,9 @@ const updateProduct = async (req: Request, res: Response) => {
 
     return res.status(200).json({ message: "Product updated with success" });
   } catch (error) {
-    if (error instanceof AppError) {
-      handleError(error, res);
-    }
+    return res.status(404).json({
+      message: "Product not found",
+    });
   }
 };
 

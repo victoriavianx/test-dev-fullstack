@@ -1,12 +1,8 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import firebase from "firebase";
-
 import firebaseConfig from "./data-source";
-
 import productRoute from "./routes/products.routes";
-
-import appErrorMiddleware from "./middlewares/handleAppError.middleware";
 
 const app = express();
 
@@ -17,9 +13,15 @@ firebase.initializeApp(firebaseConfig);
 export const database = firebase.firestore();
 
 app.use(express.json());
-app.use(cors());
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "POST, GET, PATCH, DELETE");
 
-app.use(appErrorMiddleware);
+  app.use(cors());
+
+  next();
+});
+
 app.use("/produtos", productRoute);
 
 app.listen(PORT, () => {

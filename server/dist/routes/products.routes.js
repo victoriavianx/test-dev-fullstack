@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const schemaValidation_middleware_1 = __importDefault(require("../middlewares/schemaValidation.middleware"));
+const product_schema_1 = __importDefault(require("../utils/schemas/product.schema"));
+const createProduct_controller_1 = __importDefault(require("../controllers/products/createProduct.controller"));
+const deleteProduct_controller_1 = __importDefault(require("../controllers/products/deleteProduct.controller"));
+const listProducts_controller_1 = __importDefault(require("../controllers/products/listProducts.controller"));
+const listSpecificProduct_controller_1 = __importDefault(require("../controllers/products/listSpecificProduct.controller"));
+const updateProduct_controller_1 = __importDefault(require("../controllers/products/updateProduct.controller"));
+const productRoute = (0, express_1.Router)();
+productRoute.post("/cadastro", (0, schemaValidation_middleware_1.default)(product_schema_1.default), createProduct_controller_1.default);
+productRoute.get("/", listProducts_controller_1.default);
+productRoute.get("/:id", listSpecificProduct_controller_1.default);
+productRoute.patch("/:id", updateProduct_controller_1.default);
+productRoute.delete("/:id", deleteProduct_controller_1.default);
+exports.default = productRoute;

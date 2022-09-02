@@ -1,8 +1,10 @@
+import "express-async-errors";
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import firebase from "firebase";
 import firebaseConfig from "./data-source";
 import productRoute from "./routes/products.routes";
+import handleAppErrorMiddleware from "./middlewares/handleAppError.middleware";
 
 const app = express();
 
@@ -23,6 +25,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use("/produtos", productRoute);
+
+app.use(handleAppErrorMiddleware);
 
 app.listen(PORT, () => {
   console.log(`App is running on port ${PORT}`);

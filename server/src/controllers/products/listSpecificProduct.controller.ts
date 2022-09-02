@@ -1,5 +1,6 @@
 import listSpecificProductService from "../../services/products/listSpecificProduct.service";
 import { Request, Response } from "express";
+import { AppError } from "../../errors/appError";
 
 const listSpecificProduct = async (req: Request, res: Response) => {
   try {
@@ -8,9 +9,11 @@ const listSpecificProduct = async (req: Request, res: Response) => {
 
     return res.status(200).json(product);
   } catch (error) {
-    return res.status(404).json({
-      message: "Product not found",
-    });
+    if (error instanceof AppError) {
+      return res.status(error.statusCode).json({
+        message: error.message,
+      });
+    }
   }
 };
 

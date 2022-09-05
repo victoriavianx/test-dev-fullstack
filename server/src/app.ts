@@ -8,7 +8,7 @@ import handleAppErrorMiddleware from "./middlewares/handleAppError.middleware";
 
 const app = express();
 
-const PORT = 3000;
+const PORT = 3001;
 
 firebase.initializeApp(firebaseConfig);
 

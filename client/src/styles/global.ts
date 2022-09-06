@@ -12,6 +12,8 @@ export const GlobalStyles = createGlobalStyle`
         --second-title-color: #FEC603;
         --third-title-color: #A8F387;
         --hover-color: #16D6FA;
+        --contour-color: #000000;
+        --font-hover-color: #ffffff;
     }
 
     html, body {

@@ -1,7 +1,14 @@
+import { useHistory } from "react-router-dom";
 import { Button, Container, Content, Logo, Profile } from "./styles";
 import { FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
+  const history = useHistory();
+
+  const handleClick = () => {
+    return history.push("/anunciar");
+  };
+
   return (
     <Container>
       <Content>
@@ -10,7 +17,7 @@ const Header = () => {
           <h1>L</h1>
           <h1>X</h1>
         </Logo>
-        <Button>Anunciar</Button>
+        <Button onClick={handleClick}>Anunciar</Button>
         <Profile>
           <FaUserCircle />
         </Profile>

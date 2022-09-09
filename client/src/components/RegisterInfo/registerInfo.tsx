@@ -32,7 +32,7 @@ const RegisterInfo = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<IProduct>({ resolver: yupResolver(schema), mode: "all" });
 
   const submitData = (values: IProduct) => {
@@ -76,10 +76,12 @@ const RegisterInfo = () => {
             placeholder="Descreva seu produto"
             {...register("description")}
           />
+
           <div>
             <button disabled={formStep === 0} onClick={previousformStep}>
               <FiArrowLeft />
             </button>
+
             <button disabled={formStep !== 0} onClick={nextformStep}>
               <FiArrowRight />
             </button>
@@ -124,6 +126,7 @@ const RegisterInfo = () => {
                 width: "120px",
                 paddingTop: ".25rem",
               }}
+              disabled={!isValid}
             >
               Cadastrar
             </button>

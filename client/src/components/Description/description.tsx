@@ -23,16 +23,16 @@ const selectOptions = [
 
 const DescriptionInfo = () => {
   const { formStep, nextformStep, previousformStep } = useFormStep();
-  const { setFormValues } = useFormData();
+  const { data, setData } = useFormData();
 
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<IProduct>({ resolver: yupResolver(schema) });
+  } = useForm<IProduct>({ resolver: yupResolver(schema), mode: "all" });
 
   const submitData = (values: IProduct) => {
-    return setFormValues?.(values);
+    setData?.(values);
   };
 
   return (

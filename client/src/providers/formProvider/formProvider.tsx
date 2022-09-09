@@ -1,4 +1,10 @@
-import { useState, createContext, useContext } from "react";
+import {
+  useState,
+  createContext,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 export interface IProduct {
   productName?: string;
@@ -10,7 +16,8 @@ export interface IProduct {
 
 interface IProductContext {
   data: {};
-  setFormValues?: (values: IProduct) => void;
+  setData?: Dispatch<SetStateAction<{}>>;
+  // setFormValues?: (values: IProduct) => void;
 }
 
 const defaultValue = {
@@ -22,13 +29,12 @@ export const FormContext = createContext<IProductContext>(defaultValue);
 export const FormProvider = ({ children }: any) => {
   const [data, setData] = useState({});
 
-  const setFormValues = (values: IProduct) => {
-    setData({ data, ...values });
-    console.log(data);
-  };
+  // const setFormValues = (values: IProduct) => {
+  //   setData({ data, ...values });
+  // };
 
   return (
-    <FormContext.Provider value={{ data, setFormValues }}>
+    <FormContext.Provider value={{ data, setData }}>
       {children}
     </FormContext.Provider>
   );

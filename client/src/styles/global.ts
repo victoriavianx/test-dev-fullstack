@@ -24,4 +24,8 @@ export const GlobalStyles = createGlobalStyle`
     html {
         scroll-behavior: smooth;
     }
+
+    button {
+        cursor: pointer;
+    }
 `;

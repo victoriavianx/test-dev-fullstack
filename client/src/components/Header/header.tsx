@@ -5,19 +5,19 @@ import { FaUserCircle } from "react-icons/fa";
 const Header = () => {
   const history = useHistory();
 
-  const handleClick = () => {
-    return history.push("/anunciar");
+  const handleClick = (path: string) => {
+    return history.push(path);
   };
 
   return (
     <Container>
       <Content>
-        <Logo>
+        <Logo onClick={() => handleClick("/")}>
           <h1>V</h1>
           <h1>L</h1>
           <h1>X</h1>
         </Logo>
-        <Button onClick={handleClick}>Anunciar</Button>
+        <Button onClick={() => handleClick("/anunciar")}>Anunciar</Button>
         <Profile>
           <FaUserCircle />
         </Profile>

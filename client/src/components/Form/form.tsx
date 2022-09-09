@@ -1,21 +1,13 @@
-import { useFormStep } from "../../providers/formStep/formStep";
-
-import DescriptionInfo from "../Description/description";
-import ValueInfo from "../Value /value";
-
+import RegisterInfo from "../RegisterInfo/registerInfo";
 import { Container } from "./styles";
 
 const Form = () => {
-  const { formStep } = useFormStep();
-
-  const formStepDisplay = () => {
-    return formStep === 0 ? <DescriptionInfo /> : <ValueInfo />;
-  };
-
   return (
     <Container>
       <h1>Cadastre seu produto</h1>
-      <div>{formStepDisplay()}</div>
+      <div>
+        <RegisterInfo />
+      </div>
     </Container>
   );
 };

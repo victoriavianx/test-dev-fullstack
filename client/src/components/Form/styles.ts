@@ -14,12 +14,12 @@ export const Container = styled.div`
     font-weight: var(--font-medium);
   }
 
-  form {
+  div {
     width: 80%;
     max-width: 400px;
   }
 
-  div {
+  /* div {
     margin-top: 0.8rem;
 
     button {
@@ -43,5 +43,5 @@ export const Container = styled.div`
         transition: 0.4s;
       }
     }
-  }
+  } */
 `;

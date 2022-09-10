@@ -1,32 +1,37 @@
-import { useFormData } from "../../providers/formProvider/formProvider";
+import { useParams } from "react-router-dom";
 import { useFormStep } from "../../providers/formStep/formStep";
+import { useList } from "../../providers/list/list";
+
+import api from "../../services/data-source";
 
 import { IProduct } from "../../interfaces";
+import {
+  selectOptionsCategory,
+  selectOptionsCondition,
+} from "../RegisterInfo/registerInfo";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../schema/schema";
 
-import { Container, Input, Label, Select, Textarea } from "./styles";
+import {
+  Container,
+  Input,
+  Label,
+  Select,
+  Textarea,
+} from "../RegisterInfo/styles";
+import { toast } from "react-toastify";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
-export const selectOptionsCategory = [
-  "Artigos Pet",
-  "Automóveis",
-  "Beleza",
-  "Eletrônicos e celulares",
-  "Esportes",
-  "Música",
-  "Moda",
-];
+interface IParams {
+  productId: string;
+}
 
-export const selectOptionsCondition = ["Excelente", "Muito bom", "Bom", "Ruim"];
-
-////
-
-const RegisterInfo = () => {
+const UpdateInfo = () => {
+  const { productId } = useParams<IParams>();
   const { formStep, nextformStep, previousformStep } = useFormStep();
-  const { setFormValues } = useFormData();
+  const { setProductList } = useList();
 
   const {
     handleSubmit,
@@ -35,7 +40,16 @@ const RegisterInfo = () => {
   } = useForm<IProduct>({ resolver: yupResolver(schema), mode: "all" });
 
   const submitData = (values: IProduct) => {
-    setFormValues?.(values);
+    const data = { ...values };
+
+    api
+      .patch(`/produtos/${productId}`, data)
+      .then((response) => {
+        toast.success("Produto alterado");
+
+        return setProductList?.();
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -72,7 +86,7 @@ const RegisterInfo = () => {
           <Textarea
             id="description"
             maxLength={300}
-            placeholder="Descreva seu produto"
+            placeholder={"Descreva seu produto"}
             {...register("description")}
           />
 
@@ -127,7 +141,7 @@ const RegisterInfo = () => {
               }}
               disabled={!isValid}
             >
-              Cadastrar
+              Atualizar
             </button>
           </div>
         </>
@@ -136,4 +150,4 @@ const RegisterInfo = () => {
   );
 };
 
-export default RegisterInfo;
+export default UpdateInfo;

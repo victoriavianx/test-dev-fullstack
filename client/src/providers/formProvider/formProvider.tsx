@@ -1,14 +1,10 @@
 import { useState, createContext, useContext } from "react";
-import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
+
 import api from "../../services/data-source";
 
-export interface IProduct {
-  productName: string | undefined;
-  category: string | undefined;
-  description: string | undefined;
-  condition: string | undefined;
-  price: number | undefined;
-}
+import { IProduct } from "../../interfaces";
+import { toast } from "react-toastify";
 
 interface IProductContext {
   data: {};
@@ -19,20 +15,21 @@ const defaultValue = {
   data: {},
 };
 
-export const FormContext = createContext<IProductContext>(defaultValue);
+const FormContext = createContext<IProductContext>(defaultValue);
 
 export const FormProvider = ({ children }: any) => {
   const [data, setData] = useState({});
+  const history = useHistory();
 
   const setFormValues = (data: IProduct) => {
     setData({ ...data });
 
-    console.log(data);
-
     api
       .post("/produtos/cadastro", data)
       .then((_) => {
-        toast.success("Produto cadastrado!");
+        toast.success("Produto cadastrado");
+
+        history.push("/");
       })
       .catch((err) => {
         toast.error("Ops! Algo deu errado");

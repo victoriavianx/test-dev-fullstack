@@ -1,13 +1,15 @@
-import RegisterInfo from "../RegisterInfo/registerInfo";
 import { Container } from "./styles";
 
-const Form = () => {
+interface IForm {
+  title: string;
+  component: JSX.Element;
+}
+
+const Form = ({ title, component }: IForm) => {
   return (
     <Container>
-      <h1>Cadastre seu produto</h1>
-      <div>
-        <RegisterInfo />
-      </div>
+      <h1>{title}</h1>
+      <div>{component}</div>
     </Container>
   );
 };

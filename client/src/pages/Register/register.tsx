@@ -8,7 +8,10 @@ const RegisterProduct = () => {
       <Header />
       <Main>
         <section>
-          <Form />
+          <Form
+            title={"Cadastre seu produto"}
+            component={<RegisterProduct />}
+          />
         </section>
       </Main>
     </>

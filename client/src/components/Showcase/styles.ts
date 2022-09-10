@@ -64,3 +64,17 @@ export const Content = styled.section`
     }
   }
 `;
+
+export const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+
+  @media (min-width: 768px) {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+`;

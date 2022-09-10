@@ -10,7 +10,7 @@ const defaultValue = {
   formStep: 0,
 };
 
-export const FormStepContext = createContext<IFormStepContext>(defaultValue);
+const FormStepContext = createContext<IFormStepContext>(defaultValue);
 
 export const FormStepProvider = ({ children }: any) => {
   const [formStep, setformStep] = useState(0);

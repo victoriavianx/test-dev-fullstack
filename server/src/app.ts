@@ -1,6 +1,6 @@
+import cors from "cors";
 import "express-async-errors";
 import express, { NextFunction, Request, Response } from "express";
-import cors from "cors";
 import firebase from "firebase";
 import firebaseConfig from "./data-source";
 import productRoute from "./routes/products.routes";
@@ -15,9 +15,12 @@ firebase.initializeApp(firebaseConfig);
 export const database = firebase.firestore();
 
 app.use(express.json());
+
+app.options("*", cors());
+
 app.use((req: Request, res: Response, next: NextFunction) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "POST, GET, PATCH, DELETE");
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
 
   app.use(cors());
 
